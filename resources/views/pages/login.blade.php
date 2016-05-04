@@ -10,17 +10,37 @@
     <div class="row">
         <div class="col-sm-4 col-sm-offset-2">
             <h3>Login</h3>
+
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            
+            @if (Session::has('invalid-credentials'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{{ Session::get('invalid-credentials') }}</li>
+                </ul>
+            </div>
+            @endif
+
             <div class='well'>
                 <form method='POST'>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="login-email">Email</label>
-                        <input type="email" class="form-control" id="login-email" placeholder="">
+                        <input type="email" class="form-control" id="login-email" name="login-email" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="login-password">Password</label>
-                        <input type="password" class="form-control" id="login-password" placeholder="">
+                        <input type="password" class="form-control" id="login-password" name="login-password" placeholder="">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-default">Secure Login</button>&nbsp;
                     <a href='#'>Forgot Password?</a>
                 </form>
