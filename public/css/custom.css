@@ -1,0 +1,76 @@
+a, a:hover{
+    text-decoration:none;
+}
+
+.nav .h4, .nav .h5, .nav .h6, .nav h4, .nav h5, .nav h6, #index_header h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.navbar-collapse {
+    text-align:center;
+}
+.navbar-nav {
+    display:inline-block;
+    float:none;
+}
+
+#job-search, #job-search .form-group {
+    margin-bottom: 0px;
+}
+
+form {
+    margin-bottom:0px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer a, .footer a:hover, .footer a:visited {
+    color:#000000;
+    font-size: 0.8em;
+}
+
+.footer h5 {
+    text-transform: uppercase;
+}
+
+.footer ul {
+    list-style-type: none;
+    padding:0px;
+}
+
+.footer ul li {
+    margin-bottom: 5px;
+}
+
+.footer ul li:last-child {
+    margin-bottom: 0px;
+}
+
+.footer ul a, .footer ul a:hover, .footer ul a:visited {
+    text-decoration: none;
+}
+
+.footer ul a, .footer ul a:visited {
+    color:#FFFFFF;
+}
+
+.footer ul a:hover {
+    color:#a94442;
+}
+
+.footer-content {
+    background-color: #232323;
+    color: #FFFFFF;
+    padding-top:20px;
+    padding-bottom:20px;
+    margin-bottom: 10px;
+}
+
+.outline {
+    outline:1px solid red;
+}
