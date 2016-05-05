@@ -33,12 +33,12 @@
                 <form method='POST'>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" class="form-control" id="login-email" name="login-email" placeholder="">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" class="form-control" id="login-password" name="login-password" placeholder="">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="">
                     </div>
 
                     <button type="submit" class="btn btn-default">Secure Login</button>&nbsp;

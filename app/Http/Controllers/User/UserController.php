@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\HelperController as pr;
 use App\Models\User;
@@ -28,44 +29,99 @@ class UserController extends Controller {
     }
 
     /**
+     * Create An Account Post
+     * 
+     * @return view
+     */
+    public function createPost(Request $request) {
+        // Validation
+        $this -> validate($request, [
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
+            'newsletter' => 'required|boolean'
+        ]);
+
+        // Create user
+        $userData = array(
+            'email' => $request -> get('email'),
+            'password' => $request -> get('password'),
+            'newsletter' => $request -> get('newsletter')
+        );
+        User::CreateUser($userData);
+
+        // Login the user
+        self::loginUser($request -> get('email'), $request -> get('password'));
+
+        // Redirect to homepage
+        return redirect('\\') -> with('success', 'You have successfully created your account.');
+    }
+
+    /**
      * Login
      * 
      * @return view
      */
-    public function login(Request $request) {
+    public function login() {
         return view('pages.login', self::$data);
     }
 
     /**
      * Login Post
      * 
-     * @return view
+     * @param Request $request
+     * @return type
      */
     public function loginPost(Request $request) {
         // Validation
         $this -> validate($request, [
-            'login-email' => 'required',
-            'login-password' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
 
-        // Variables
-        $authenticated = FALSE;
-
-        // Get the user
-        $user = User::where('email', $request -> get('login-email')) -> first();
-
-        // Authenticate
-        if ($user) {
-            pr::show($user);
-            die();
-        }
-
-        // Return
-        if ($authenticated) {
-            
+        // Login User
+        if (self::loginUser($request -> get('email'), $request -> get('password'))) {
+            // Redirect to homepage
+            return redirect('\\') -> with('success', 'Welcome back, ' . session('user') -> email);
         } else {
             return redirect('user\login') -> with('invalid-credentials', 'Email and/or password is invalid.');
         }
+    }
+
+    /**
+     * Authenticates a user
+     * 
+     * @param object $user
+     * @return boolean
+     */
+    private function loginUser($email, $password) {
+        // Variables
+        $authenticated = FALSE;
+
+        // Authenticate
+        if ($user = User::where('email', $email) -> first()) {
+            if (Hash::check($password, $user -> password)) {
+                $authenticated = TRUE;
+
+                // Store user in the session
+                session(['user' => $user]);
+            }
+        }
+
+        return $authenticated;
+    }
+
+    /**
+     * Logout
+     * 
+     * @return view
+     */
+    public function logout(Request $request) {
+        // Destroy the user in the session
+        $request -> session() -> forget('user');
+
+        // Redirect to homepage
+        return redirect('\\') -> with('success', 'You have successfully logged out.');
     }
 
 }

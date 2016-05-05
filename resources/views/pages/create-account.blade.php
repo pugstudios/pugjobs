@@ -10,40 +10,51 @@
     <div class="row">
         <div class="col-sm-4 col-sm-offset-2">
             <h3>Join PugJobs.com - It's Free!</h3>
+
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <div class='well'>
                 <p class='small'>Already have  PugJobs.com account? <a href='{{ url('user/login') }}'>Login Here</a></p>
-                <form>
-
+                <form method='POST'>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label for="create-account-email">Email</label>
-                        <input type="email" class="form-control" id="create-account-email" placeholder="">
+                        <label for="email">Email <em>*</em></label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="create-account-password">Password</label>
-                        <input type="password" class="form-control" id="create-account-password" placeholder="">
+                        <label for="password">Password <em>*</em></label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="create-account-password-verify">Re-enter Password</label>
-                        <input type="password" class="form-control" id="create-account-password-verify" placeholder="">
+                        <label for="password_confirmation">Confirm Password <em>*</em></label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="">
                     </div>
 
                     <div class="form-group">
                         <p>Email me career-related updates and job opportunities.</p>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="create-account-newsletter" value="yes" checked>Yes
+                                <input type="radio" name="newsletter" value="1" checked>Yes
                             </label>
                             &nbsp;
                             <label>
-                                <input type="radio" name="create-account-newsletter" value="no">No
+                                <input type="radio" name="newsletter" value="0">No
                             </label>
                         </div>
                     </div>
 
                     <p class='small'>By continuing you agree to PugJobs.com <a href='#'>Terms & Notices</a>, <a href='#'>Privacy & Security</a>, and the use of cookies.</p>
-                        <button type="submit" class="btn btn-default">Create Account</button>&nbsp;
+                    <button type="submit" class="btn btn-default">Create Account</button>&nbsp;
                 </form>
             </div>
         </div>
