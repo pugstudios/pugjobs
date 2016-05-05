@@ -29,6 +29,15 @@ class UserController extends Controller {
     }
 
     /**
+     * Create A Company Account
+     * 
+     * @return view
+     */
+    public function createCompany() {
+        return view('pages.create-company', self::$data);
+    }
+
+    /**
      * Create An Account Post
      * 
      * @return view
@@ -39,14 +48,20 @@ class UserController extends Controller {
             'email' => 'required|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required',
-            'newsletter' => 'required|boolean'
+            'newsletter' => 'required|boolean',
+            'type' => 'required|in:employee,employer,staff',
+            'company_name' => 'sometimes|required',
         ]);
 
         // Create user
         $userData = array(
             'email' => $request -> get('email'),
             'password' => $request -> get('password'),
-            'newsletter' => $request -> get('newsletter')
+            'newsletter' => $request -> get('newsletter'),
+            'type' => $request -> get('type'),
+            'company_name' => $request -> get('company_name') !== null ? $request -> get('company_name') : NULL,
+            'company_description' => $request -> get('company_description') !== null ? $request -> get('company_description') : NULL,
+            'company_logo' => $request -> file('company_logo') !== null ? $request -> file('company_logo') : NULL,
         );
         User::CreateUser($userData);
 

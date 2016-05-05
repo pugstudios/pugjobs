@@ -16,6 +16,10 @@ class CreateUsersTable extends Migration {
             $table -> string('email') -> unique();
             $table -> string('password');
             $table -> boolean('newsletter') -> default(1);
+            $table -> enum('type', array('employee', 'employer', 'staff'));
+            $table -> string('company_name') -> nullable() -> default(NULL);
+            $table -> text('company_description') -> nullable() -> default(NULL);
+            $table -> string('company_logo') -> nullable() -> default(NULL);
             $table -> rememberToken();
             $table -> timestamps();
         });

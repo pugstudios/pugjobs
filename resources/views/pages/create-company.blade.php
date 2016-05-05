@@ -2,7 +2,7 @@
 
 @extends('pages.master')
 
-@section('title', 'Create Account - PugJobs.com')
+@section('title', 'Create Company - PugJobs.com')
 
 @section('content')
 
@@ -23,9 +23,9 @@
 
             <div class='well'>
                 <p class='small'>Already have  PugJobs.com account? <a href='{{ url('user/login') }}'>Login Here</a></p>
-                <form method='POST'>
+                <form method='POST' action="{{ url('user/create') }}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="type" value="employee">
+                    <input type="hidden" name="type" value="employer">
                     <div class="form-group">
                         <label for="email">Email <em>*</em></label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="">
@@ -41,8 +41,32 @@
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="">
                     </div>
 
+                    <hr/>
+
                     <div class="form-group">
-                        <p>Email me career-related updates and job opportunities.</p>
+                        <label for="company_name">Company Name <em>*</em></label>
+                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company_description">About Your Company</label>
+                        <textarea name="company_description" class="summernote"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company_logo">Company Logo</label><br/>
+                        <small>Image will be cropped to 150x150. Choosing an image this size will ensure that your logo always displays great!</small>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;"></div>
+                            <div>
+                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="company_logo"></span>
+                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <p>Email me employer-related updates and potential candidates.</p>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="newsletter" value="1" checked>Yes
@@ -60,8 +84,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <h3>Are You An Employer?</h3>
-            <p>Registering as an employer with PugJobs.com will provide you the following benefits:</p>
+            <h3>Benefits of using PugJobs.com to hire your next rock-star:</h3>
             <ul>
                 <li>Attract & engage the perfect talent</li>
                 <li>Makes your first impression impressive</li>
@@ -69,7 +92,6 @@
                 <li>View who is looking at your and from where</li>
                 <li>Employers can setup their accounts for <strong>FREE</strong>!
             </ul>
-            <a href='{{ url('user/create/company') }}'><button type="button" class="btn btn-default btn-lg btn-block">Create A <strong>FREE</strong> Employer Account</button></a>
         </div>
     </div>
 </div>

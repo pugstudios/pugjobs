@@ -1,11 +1,13 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>@yield('title')</title>
 
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/jasny-bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/summernote.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
 
     </head>
@@ -47,5 +49,8 @@
         <!-- JS -->
         <script src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/summernote.min.js') }}"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
     </body>
 </html>

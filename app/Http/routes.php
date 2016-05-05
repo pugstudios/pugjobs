@@ -16,6 +16,7 @@ Route::get('/', 'Page\PageController@index');
 Route::group(['prefix' => 'user'], function () {
     /* Create */ Route::get('/create', 'User\UserController@create');
     /* Create */ Route::post('/create', 'User\UserController@createPost');
+    /* Create */ Route::get('/create/company', 'User\UserController@createCompany');
     /* Login */ Route::get('/login', 'User\UserController@login');
     /* Login */ Route::post('/login', 'User\UserController@loginPost');
     /* Logout */ Route::get('/logout', 'User\UserController@logout');
