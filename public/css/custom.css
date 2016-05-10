@@ -36,6 +36,10 @@ em {
     display: block;
 }
 
+#error_wrapper {
+    display:none;
+}
+
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
     margin-top: 0;
 }
@@ -120,4 +124,8 @@ form {
 
 .outline {
     outline:1px solid red;
+}
+
+.processing {
+    display:none;
 }

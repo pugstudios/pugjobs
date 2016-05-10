@@ -21,3 +21,14 @@ Route::group(['prefix' => 'user'], function () {
     /* Login */ Route::post('/login', 'User\UserController@loginPost');
     /* Logout */ Route::get('/logout', 'User\UserController@logout');
 });
+
+Route::group(['prefix' => 'job'], function () {
+    /* Create */ Route::get('/create', 'Job\JobController@create');
+    /* Payment */ Route::post('/payment', 'Job\JobController@payment');
+    /* Finalize */ Route::post('/payment/finalize', 'Job\JobController@finalize');
+});
+
+Route::group(['prefix' => 'payment'], function () {
+    /* Payment */ Route::post('/', 'Payment\PaymentController@payment');
+    /* Finalize */ Route::post('/finalize', 'Payment\PaymentController@finalize');
+});

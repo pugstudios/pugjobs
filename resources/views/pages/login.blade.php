@@ -52,7 +52,7 @@
             <ul>
                 <li>Narrowed job searches</li>
                 <li>Email notifications</li>
-                <li>Employers can post jobs for as little as $1</li>
+                <li>Employers can post jobs for as little as ${{ env('PRICE_PER_DAY') }}</li>
                 <li>Statistics in both posting and searching jobs</li>
             </ul>
             <a href='{{ url('user/create') }}'><button type="button" class="btn btn-default btn-lg btn-block">Create An Account</button></a>

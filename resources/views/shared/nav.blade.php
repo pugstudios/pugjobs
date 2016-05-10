@@ -18,6 +18,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;&nbsp;Account <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a>{{ session('user') -> email }}</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a></li>
                         <li><a href="#"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp;&nbsp;Watch Lists</a></li>
                         <li role="separator" class="divider"></li>
@@ -29,7 +31,7 @@
                 @endif
 
 
-                <li><a href="#"><h4><span class="label label-danger">Post Job</span></h4></a></li>
+                <li><a href="{{ url('job/create') }}"><h4><span class="label label-danger">Post Job</span></h4></a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

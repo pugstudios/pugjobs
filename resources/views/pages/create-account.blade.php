@@ -65,7 +65,7 @@
             <ul>
                 <li>Attract & engage the perfect talent</li>
                 <li>Makes your first impression impressive</li>
-                <li><strong>Post jobs for as little as $1</strong></li>
+                <li><strong>Post jobs for as little as ${{ env('PRICE_PER_DAY') }}</strong></li>
                 <li>View who is looking at your and from where</li>
                 <li>Employers can setup their accounts for <strong>FREE</strong>!
             </ul>

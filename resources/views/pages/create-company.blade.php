@@ -44,22 +44,22 @@
                     <hr/>
 
                     <div class="form-group">
-                        <label for="company_name">Company Name <em>*</em></label>
-                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="">
+                        <label for="name">Company Name <em>*</em></label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="company_description">About Your Company</label>
-                        <textarea name="company_description" class="summernote"></textarea>
+                        <label for="description">About Your Company</label>
+                        <textarea name="description" class="summernote"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="company_logo">Company Logo</label><br/>
+                        <label for="logo">Company Logo</label><br/>
                         <small>Image will be cropped to 150x150. Choosing an image this size will ensure that your logo always displays great!</small>
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;"></div>
                             <div>
-                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="company_logo"></span>
+                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="logo"></span>
                                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
             <ul>
                 <li>Attract & engage the perfect talent</li>
                 <li>Makes your first impression impressive</li>
-                <li><strong>Post jobs for as little as $1</strong></li>
+                <li><strong>Post jobs for as little as ${{ env('PRICE_PER_DAY') }}</strong></li>
                 <li>View who is looking at your and from where</li>
                 <li>Employers can setup their accounts for <strong>FREE</strong>!
             </ul>

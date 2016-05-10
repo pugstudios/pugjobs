@@ -50,7 +50,7 @@ class UserController extends Controller {
             'password_confirmation' => 'required',
             'newsletter' => 'required|boolean',
             'type' => 'required|in:employee,employer,staff',
-            'company_name' => 'sometimes|required',
+            'name' => 'sometimes|required',
         ]);
 
         // Create user
@@ -59,9 +59,9 @@ class UserController extends Controller {
             'password' => $request -> get('password'),
             'newsletter' => $request -> get('newsletter'),
             'type' => $request -> get('type'),
-            'company_name' => $request -> get('company_name') !== null ? $request -> get('company_name') : NULL,
-            'company_description' => $request -> get('company_description') !== null ? $request -> get('company_description') : NULL,
-            'company_logo' => $request -> file('company_logo') !== null ? $request -> file('company_logo') : NULL,
+            'name' => $request -> get('name') !== null ? $request -> get('name') : NULL,
+            'description' => $request -> get('description') !== null ? $request -> get('description') : NULL,
+            'logo' => $request -> file('logo') !== null ? $request -> file('logo') : NULL,
         );
         User::CreateUser($userData);
 
