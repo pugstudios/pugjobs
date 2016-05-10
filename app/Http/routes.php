@@ -31,4 +31,5 @@ Route::group(['prefix' => 'job'], function () {
 Route::group(['prefix' => 'payment'], function () {
     /* Payment */ Route::post('/', 'Payment\PaymentController@payment');
     /* Finalize */ Route::post('/finalize', 'Payment\PaymentController@finalize');
+    /* Finalize */ Route::get('/success', 'Payment\PaymentController@success');
 });

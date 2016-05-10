@@ -66,7 +66,7 @@ class UserController extends Controller {
         User::CreateUser($userData);
 
         // Login the user
-        self::loginUser($request -> get('email'), $request -> get('password'));
+        User::LoginUser($request -> get('email'), $request -> get('password'));
 
         // Redirect to homepage
         return redirect('\\') -> with('success', 'You have successfully created your account.');
@@ -95,35 +95,12 @@ class UserController extends Controller {
         ]);
 
         // Login User
-        if (self::loginUser($request -> get('email'), $request -> get('password'))) {
+        if (User::LoginUser($request -> get('email'), $request -> get('password'))) {
             // Redirect to homepage
             return redirect('\\') -> with('success', 'Welcome back, ' . session('user') -> email);
         } else {
             return redirect('user\login') -> with('invalid-credentials', 'Email and/or password is invalid.');
         }
-    }
-
-    /**
-     * Authenticates a user
-     * 
-     * @param object $user
-     * @return boolean
-     */
-    private function loginUser($email, $password) {
-        // Variables
-        $authenticated = FALSE;
-
-        // Authenticate
-        if ($user = User::where('email', $email) -> first()) {
-            if (Hash::check($password, $user -> password)) {
-                $authenticated = TRUE;
-
-                // Store user in the session
-                session(['user' => $user]);
-            }
-        }
-
-        return $authenticated;
     }
 
     /**

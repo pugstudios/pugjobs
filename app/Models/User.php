@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Helper\HelperController as pr;
+use App\Http\Controllers\User\UserController;
 
 class User extends Authenticatable {
 
@@ -57,6 +59,38 @@ class User extends Authenticatable {
         return $user;
     }
 
+    /**
+     * Authenticates a user
+     * 
+     * @param object $user
+     * @return boolean
+     */
+    public static function LoginUser($email, $password = NULL, $rebuild = FALSE) {
+        // Variables
+        $authenticated = FALSE;
+
+        // Authenticate
+        if ($user = User::where('email', $email) -> first()) {
+            if ($rebuild) {
+                // Destroy the user session
+                Session::forget('user');
+
+                // Store user in the session
+                session(['user' => $user]);
+            } else {
+                // Authenticate and create a new user session
+                if (Hash::check($password, $user -> password)) {
+                    $authenticated = TRUE;
+
+                    // Store user in the session
+                    session(['user' => $user]);
+                }
+            }
+        }
+
+        return $authenticated;
+    }
+
     public static function UpdateUser($user_id, $data) {
         try {
             if ($user = User::where('id', $user_id) -> first()) {
@@ -64,6 +98,9 @@ class User extends Authenticatable {
                     $user -> $k = $v;
                 }
                 $user -> save();
+
+                // Rebuild the user session
+                User::LoginUser($user -> email, NULL, TRUE);
             } else {
                 return back() -> with('error', 'User was not found in the system. (User::UpdateUser)');
             }

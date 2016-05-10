@@ -14,7 +14,7 @@ class JobPost {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if (!$request -> session() -> get('job_posted')) {
+        if (!$request -> get('employer_id')) {
             return redirect('job\create');
         }
 

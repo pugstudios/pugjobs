@@ -29,51 +29,73 @@ $(document).ready(function () {
         $('#error_wrapper ul').empty();
         $("#error_wrapper").hide();
 
-        // Validation
-        var errors = [];
-        if ($('#payment_name').val() == '') {
-            errors.push('The payment name field is required.');
-        }
-        if ($('#payment_cc').val() == '') {
-            errors.push('The credit card field is required.');
-        }
-        if ($('#payment_cvv').val() == '') {
-            errors.push('The cvv field is required.');
-        }
-        if ($('#payment_month').val() == '') {
-            errors.push('The exp month field is required.');
-        }
-        if ($('#payment_year option:selected').val() == '') {
-            errors.push('The exp year field is required.');
-        }
-        if ($('#payment_zip').val() == '') {
-            errors.push('The postal code field is required.');
-        }
-
-        if (errors.length == 0) {
-            // Disable the submit button
-            $('#payment_submit').hide();
-            $('#payment_processing').show();
-
-            Stripe.setPublishableKey(StripeKey);
-            Stripe.card.createToken({
-                number: $('#payment_cc').val(),
-                cvc: $('#payment_cvv').val(),
-                exp_month: $('#payment_month').val(),
-                exp_year: $('#payment_year').val(),
-                address_zip: $('#payment_zip').val()
-            }, stripeResponseHandler);
+        // Does the user have a stripe_id?
+        if ($("#stripe_id").length == 0) {
+            processNewPayment();
         } else {
-            $.each(errors, function (index, value) {
-                $("#error_wrapper ul").append('<li>' + value + '</li>');
-            });
-            $("#error_wrapper").show();
+            processPayment($("#stripe_id").val());
         }
 
         event.preventDefault();
     }));
 });
 
+/**
+ * processNewPayment
+ *  
+ * @returns {undefined}
+ */
+function processNewPayment() {
+    // Validation
+    var errors = [];
+
+    if ($('#payment_name').val() == '') {
+        errors.push('The payment name field is required.');
+    }
+    if ($('#payment_cc').val() == '') {
+        errors.push('The credit card field is required.');
+    }
+    if ($('#payment_cvv').val() == '') {
+        errors.push('The cvv field is required.');
+    }
+    if ($('#payment_month').val() == '') {
+        errors.push('The exp month field is required.');
+    }
+    if ($('#payment_year option:selected').val() == '') {
+        errors.push('The exp year field is required.');
+    }
+    if ($('#payment_zip').val() == '') {
+        errors.push('The postal code field is required.');
+    }
+
+    if (errors.length == 0) {
+        // Disable the submit button
+        $('#payment_submit').hide();
+        $('#payment_processing').show();
+
+        Stripe.setPublishableKey(StripeKey);
+        Stripe.card.createToken({
+            number: $('#payment_cc').val(),
+            cvc: $('#payment_cvv').val(),
+            exp_month: $('#payment_month').val(),
+            exp_year: $('#payment_year').val(),
+            address_zip: $('#payment_zip').val()
+        }, stripeResponseHandler);
+    } else {
+        $.each(errors, function (index, value) {
+            $("#error_wrapper ul").append('<li>' + value + '</li>');
+        });
+        $("#error_wrapper").show();
+    }
+}
+
+/**
+ * stripeResponseHandler
+ * 
+ * @param {type} status
+ * @param {type} response
+ * @returns {undefined}
+ */
 function stripeResponseHandler(status, response) {
     if (response.error) { // Problem!
         // Show the errors on the form
@@ -84,34 +106,44 @@ function stripeResponseHandler(status, response) {
         $('#payment_submit').show();
         $('#payment_processing').hide();
     } else {
-
-        $.ajax({
-            url: envURL + 'payment/finalize',
-            headers: {
-                'X-CSRF-Token': $('input[name="_token"]').val()
-            },
-            data: {
-                name: $('#payment_name').val(),
-                last_4: $('#payment_cc').val().substr($('#payment_cc').val().length - 4),
-                month: $('#payment_month').val(),
-                year: $('#payment_year').val(),
-                zip: $('#payment_zip').val(),
-                token: response.id,
-                amount: $('#payment_amount').val()
-            },
-            success: function (data) {
-                console.log(data);
-                data = $.parseJSON(data);
-
-                if (data.hasOwnProperty("error")) {
-                    $("#error_wrapper ul").append('<li>' + data.error + '</li>');
-                    $("#error_wrapper").show();
-                } else {
-                    console.log(data);
-                }
-            },
-            type: 'POST'
-        });
+        processPayment(response.id);
     }
+}
+
+/**
+ * processPayment
+ * 
+ * @param {type} token
+ * @returns {undefined}
+ */
+function processPayment(token) {
+    $.ajax({
+        url: envURL + 'payment/finalize',
+        headers: {
+            'X-CSRF-Token': $('input[name="_token"]').val()
+        },
+        data: {
+            name: $('#payment_name').val(),
+            last_4: $('#payment_cc').val().substr($('#payment_cc').val().length - 4),
+            month: $('#payment_month').val(),
+            year: $('#payment_year').val(),
+            zip: $('#payment_zip').val(),
+            token: token,
+            amount: $('#payment_amount').val()
+        },
+        success: function (data) {
+            data = $.parseJSON(data);
+
+            if (data.hasOwnProperty("error")) {
+                $("#error_wrapper ul").append('<li>' + data.error + '</li>');
+                $("#error_wrapper").show();
+            } else {
+                if (data.status == "succeeded") {
+                    window.location.replace(envURL + "payment/success");
+                }
+            }
+        },
+        type: 'POST'
+    });
 }
 
