@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\PugModel;
 use App\Http\Controllers\Helper\HelperController as pr;
 
-class Job extends Model {
+class Job extends PugModel {
 
     protected $fillable = [
         'title'

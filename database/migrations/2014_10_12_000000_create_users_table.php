@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration {
             $table -> string('exp_month') -> nullable() -> default(NULL);
             $table -> string('exp_year') -> nullable() -> default(NULL);
             $table -> string('zip') -> nullable() -> default(NULL);
-            $table -> rememberToken();
             $table -> timestamps();
         });
     }

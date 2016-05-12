@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTransactionsTable extends Migration {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up() {
         Schema::create('transactions', function (Blueprint $table) {
             $table -> string('id') -> nullable() -> default(NULL);

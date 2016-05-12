@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\PugModel;
 use App\Http\Controllers\Helper\HelperController as pr;
-use App\Http\Controllers\User\UserController;
 
-class User extends Authenticatable {
+class User extends PugModel {
 
     /**
      * The attributes that are mass assignable.
@@ -91,6 +89,13 @@ class User extends Authenticatable {
         return $authenticated;
     }
 
+    /**
+     * Update User
+     * 
+     * @param type $user_id
+     * @param type $data
+     * @return type
+     */
     public static function UpdateUser($user_id, $data) {
         try {
             if ($user = User::where('id', $user_id) -> first()) {

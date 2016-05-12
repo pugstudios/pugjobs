@@ -20,6 +20,10 @@ Route::group(['prefix' => 'user'], function () {
     /* Login */ Route::get('/login', 'User\UserController@login');
     /* Login */ Route::post('/login', 'User\UserController@loginPost');
     /* Logout */ Route::get('/logout', 'User\UserController@logout');
+    /* Password */ Route::get('/password', 'User\UserController@password');
+    /* Password */ Route::post('/password', 'User\UserController@passwordPost');
+    /* Password Reset */ Route::get('/password/reset/{token}', 'User\UserController@passwordReset');
+    /* Password Reset */ Route::post('/password/reset/{token}', 'User\UserController@passwordResetPost');
 });
 
 Route::group(['prefix' => 'job'], function () {

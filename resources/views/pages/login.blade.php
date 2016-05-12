@@ -42,7 +42,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-default">Secure Login</button>&nbsp;
-                    <a href='#'>Forgot Password?</a>
+                    <a href='{{ url('user/password') }}'>Forgot Password?</a>
                 </form>
             </div>
         </div>

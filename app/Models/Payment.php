@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\PugModel;
 use App\Http\Controllers\Helper\HelperController as pr;
 
-class Payment extends Model {
+class Payment extends PugModel {
 
     protected $fillable = [
         'id', 'object', 'amount', 'amount_refunded', 'application_fee', 'balance_transaction',
