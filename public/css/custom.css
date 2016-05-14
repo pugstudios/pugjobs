@@ -40,6 +40,38 @@ em {
     display:none;
 }
 
+.job-posting .job-title {
+    font-weight:bold;
+    font-size:1.75em;
+    text-align:left;
+}
+
+.job-posting .company-name {
+    font-size:1.25em;
+    color: #B0B0B0;
+}
+
+.job-posting .logo-wrapper {
+    width:75px;
+    height:75px;
+    overflow:hidden;
+    padding:0px;
+    background-color:#FFFFFF;
+}
+
+.job-posting .posted {
+    font-size:1.5em;
+}
+
+.job-posting .text-right {
+    color: #D0D0D0;
+}
+
+.job-posting .row {
+    padding:0px 20px;
+    margin:0px;
+}
+
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
     margin-top: 0;
 }

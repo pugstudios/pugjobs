@@ -55,9 +55,9 @@
 
                     <div class="form-group">
                         <label for="logo">Company Logo</label><br/>
-                        <small>Image will be cropped to 150x150. Choosing an image this size will ensure that your logo always displays great!</small>
+                        <small>Image will be cropped to 75x75. Choosing an image this size will ensure that your logo always displays great!</small>
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;"></div>
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 75px; height: 75px;"></div>
                             <div>
                                 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="logo"></span>
                                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>

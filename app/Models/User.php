@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\PugModel;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\Helper\HelperController as pr;
 
 class User extends PugModel {

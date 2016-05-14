@@ -13,13 +13,19 @@ class Job extends PugModel {
     protected $hidden = [];
     protected $table = 'jobs';
 
+    // Associations
+    // Stages
+    public function company() {
+        return $this -> belongsTo('App\Models\User', 'employer_id', 'id');
+    }
+
     /**
      * GetJobs
      * 
      * @return array
      */
     public static function GetJobs() {
-        return Job::get();
+        return Job::with('company') -> orderBy('created_at', 'desc') -> paginate();
     }
 
     /**
