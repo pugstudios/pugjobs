@@ -7,6 +7,10 @@ em {
     color: #d62728;
 }
 
+.hidden {
+    display:none;
+}
+
 .nav .h4, .nav .h5, .nav .h6, .nav h4, .nav h5, .nav h6, #index_header h3 {
     margin-top: 0px;
     margin-bottom: 0px;

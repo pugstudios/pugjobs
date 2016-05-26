@@ -20,6 +20,15 @@ class Job extends PugModel {
     }
 
     /**
+     * GetCompanyJobs
+     * 
+     * @return array
+     */
+    public static function GetCompanyJobs() {
+        return Job::where('employer_id', session('user') -> id) -> orderBy('created_at', 'desc') -> paginate();
+    }
+
+    /**
      * GetJobs
      * 
      * @return array
@@ -35,11 +44,6 @@ class Job extends PugModel {
      * @return \App\Models\Job
      */
     public static function CreateJob($data) {
-        // Determine the start/end dates
-        $daterange = explode(' - ', $data['daterange']);
-        $start = $daterange[0];
-        $end = $daterange[1];
-
         $job = new Job();
         $job -> status = 'saved';
         $job -> employer_id = $data['employer_id'];
@@ -48,8 +52,20 @@ class Job extends PugModel {
         $job -> remote = $data['remote'];
         $job -> location = e(ucwords($data['location']));
         $job -> salary = $data['salary'];
-        $job -> start = $start;
-        $job -> end = $end;
+        $job -> start = self::DetermineStartEndDate($data['daterange'], 'start');
+        $job -> end = self::DetermineStartEndDate($data['daterange'], 'end');
+        $job -> save();
+
+        return $job;
+    }
+
+    public static function EditJob($data, $id) {
+        $job = Job::GetBy(array('id' => $id));
+        $job -> title = e(ucwords($data['title']));
+        $job -> description = e($data['description']);
+        $job -> remote = $data['remote'];
+        $job -> location = e(ucwords($data['location']));
+        $job -> salary = $data['salary'];
         $job -> save();
 
         return $job;
@@ -67,6 +83,25 @@ class Job extends PugModel {
         $diff = $start -> diff($end);
 
         return $diff -> days * env('PRICE_PER_DAY');
+    }
+
+    /**
+     * Determine Date Range
+     * 
+     * @param type $dateRange
+     * @return type
+     */
+    private static function DetermineStartEndDate($dateRange, $option) {
+        // Determine Date Range
+        $daterange = explode(' - ', $dateRange);
+        
+        if($option == "start") {
+            // Start Date
+            return $daterange[0];
+        } else {
+            // End Date
+            return $daterange[1];
+        }
     }
 
     /**

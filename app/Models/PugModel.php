@@ -16,5 +16,4 @@ class PugModel extends Model implements iModel {
         }
         return $query -> first();
     }
-
 }

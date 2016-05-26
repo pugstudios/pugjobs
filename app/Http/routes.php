@@ -30,6 +30,9 @@ Route::group(['prefix' => 'job'], function () {
     /* Create */ Route::get('/create', 'Job\JobController@create');
     /* Payment */ Route::post('/payment', 'Job\JobController@payment');
     /* Finalize */ Route::post('/payment/finalize', 'Job\JobController@finalize');
+    /* Posted (Company) */ Route::get('/posted', 'Job\JobController@posted');
+    /* Edit */ Route::get('/edit/{id}', 'Job\JobController@edit');
+    /* Edit */ Route::post('/edit/{id}', 'Job\JobController@editPost');
 });
 
 Route::group(['prefix' => 'payment'], function () {

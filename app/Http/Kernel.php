@@ -47,6 +47,7 @@ class Kernel extends HttpKernel {
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.job' => \App\Http\Middleware\AuthJob::class,
+        'auth.isCompany' => \App\Http\Middleware\IsCompany::class,
         'job.post' => \App\Http\Middleware\JobPost::class,
     ];
 

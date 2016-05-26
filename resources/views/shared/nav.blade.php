@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">PugJobs.com</a>
+            <a class="navbar-brand" href="{{ url('/') }}">PugJobs.com</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,7 +21,9 @@
                         <li><a>{{ session('user') -> email }}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a></li>
-                        <li><a href="#"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp;&nbsp;Watch Lists</a></li>
+                        @if(session('user') -> type == "employer")
+                        <li><a href="{{ url('job/posted') }}"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp;&nbsp;Your Job Posts</a></li>
+                        @endif
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ url('user/logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;Logout</a></li>
                     </ul>

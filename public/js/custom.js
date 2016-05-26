@@ -1,6 +1,7 @@
 
 var StripeKey = 'pk_test_ClBvdffVhy60B7K5l6oXgHED';
 var envURL = 'http://localhost/pugjobs.com/public/';
+var postClickMatchAgainst = 'job_post_';
 
 $(document).ready(function () {
 
@@ -14,6 +15,9 @@ $(document).ready(function () {
 
     // Job Creation - Remote/Location Toggle
     $(".job_create_remote_radio").bind('click', (function () {
+        // Remove the hidden class (which is used in random spots)
+        $('#job_location_wrapper').removeClass('hidden');
+        
         if ($(this).val() != 1) {
             $('.job_create_location').val('').show();
         } else {
@@ -37,6 +41,11 @@ $(document).ready(function () {
         }
 
         event.preventDefault();
+    }));
+
+    // Edit Job Posting
+    $(".edit-job-posting").bind("click", (function (event) {
+        window.location = envURL + "job/edit/" + this.id.substr(this.id.indexOf(postClickMatchAgainst) + postClickMatchAgainst.length);
     }));
 });
 
@@ -146,4 +155,6 @@ function processPayment(token) {
         type: 'POST'
     });
 }
+
+
 
